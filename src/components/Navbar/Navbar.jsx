@@ -1,22 +1,23 @@
 import s from './Navbar.module.css'
+import {NavLink} from "react-router-dom";
 
 function Navnar() {
     return (
         <nav className={s.nav}>
-            <div className={`${s.item} ${s.active}`}>
-                <a href="/profile">Profiles</a>
+            <div className={`${s.item}`}>
+                <NavLink to="/profile" activeClassName={s.active}>Profiles</NavLink>
             </div>
             <div className={s.item}>
-                <a href="/messages">Messages</a>
+                <NavLink to="/messages" activeClassName={s.active}>Messages</NavLink>
             </div>
             <div className={s.item}>
-                <a href="/news">News</a>
+                <NavLink to="/news" activeClassName={s.active}>News</NavLink>
             </div>
             <div className={s.item}>
-                <a href="/music">Music</a>
+                <NavLink to="/music" activeClassName={s.active}>Music</NavLink>
             </div>
             <div className={s.item}>
-                <a href="/settings">Settings</a>
+                <NavLink to="/settings" activeClassName={s.active}>Settings</NavLink>
             </div>
         </nav>
     );

@@ -16,8 +16,6 @@ function App() {
               <Header/>
               <Navnar/>
               <div className="app-wrapper-content">
-                  {/*<Profile/>*/}
-                  {/*<Dialogs/>*/}
                   <Route path='/profile' component={Profile}/>
                   <Route path='/messages' component={Dialogs}/>
                   <Route path='/news' component={News}/>
