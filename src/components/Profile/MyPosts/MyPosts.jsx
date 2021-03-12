@@ -3,7 +3,7 @@ import Post from "./Post/Post";
 
 function MyPosts() {
     return (
-        <div className={s.content}>
+        <div>
             <div>
                 ava
             </div>
