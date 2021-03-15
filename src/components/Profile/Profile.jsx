@@ -1,14 +1,13 @@
 import s from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-function Profile() {
+function Profile(props) {
+
     return (
         <div>
-            <div>
-                <img src="https://astv.ru/content/NewsImage/e1/36/e136124a-54d3-4ebd-8f87-54c0f68afda1_1.jpg" alt=""/>
-            </div>
-            <MyPosts/>
-
+            <ProfileInfo/>
+            <MyPosts posts={props.state.posts}/>
         </div>
     );
 }

@@ -8,7 +8,7 @@ function Navnar() {
                 <NavLink to="/profile" activeClassName={s.active}>Profiles</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to="/messages" activeClassName={s.active}>Messages</NavLink>
+                <NavLink to="/dialogs" activeClassName={s.active}>Messages</NavLink>
             </div>
             <div className={s.item}>
                 <NavLink to="/news" activeClassName={s.active}>News</NavLink>
