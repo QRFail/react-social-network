@@ -1,3 +1,7 @@
+import profileReduser from "./profile_reduser";
+import dialogsReduser from "./dialogs_reduser";
+
+
 let store = {
     state: {
         dialogsPage:{
@@ -14,7 +18,8 @@ let store = {
                 {id: 3, message: "Yo"},
                 {id: 4, message: "Hi"},
                 {id: 5, message: "Yo"}
-            ]
+            ],
+            newMessageText: ''
         },
         profilePage: {
             posts: [
@@ -37,22 +42,16 @@ let store = {
     },
 
     dispatch(action) {
-        if(action.type === 'ADD-POST'){
-            let m = {
-                id: this.state.profilePage.posts.length + 1,
-                message: this.state.profilePage.newPostText,
-                likeCount: 0
-            }
 
-            this.state.profilePage.posts.push(m);
-            this.state.profilePage.newPostText = '';
-            this.renderReactDom(this.state);
-        } else if(action.type === 'UPDATE-NEW-POST-TEXT'){
-            this.state.profilePage.newPostText = action.newText;
-            this.renderReactDom(this.state);
-        }
+        this.state.profilePage = profileReduser(this.state.profilePage, action);
+        this.state.dialogsPage = dialogsReduser(this.state.dialogsPage, action);
+
+        this.renderReactDom(this.state);
+
     }
 
 }
+
+
 
 export default store;
