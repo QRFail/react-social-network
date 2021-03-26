@@ -8,6 +8,7 @@ import Settings from "./components/Settings/Settings";
 import {BrowserRouter, Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileApiContainer from "./components/Profile/ProfileApiContainer";
 
 
 function App(props) {
@@ -18,8 +19,8 @@ function App(props) {
               <Navnar/>
               <div className="app-wrapper-content">
 
-                  <Route path='/profile'
-                         render={ () =>  <Profile/> }/>
+                  <Route path='/profile/:userId?'
+                         render={ () =>  <ProfileApiContainer/> }/>
                   <Route path='/dialogs'
                          render={ () =>  <DialogsContainer/> }/>
                   <Route path='/users' component={UsersContainer}/>
