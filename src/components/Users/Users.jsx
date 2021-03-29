@@ -6,6 +6,8 @@ import userImage from '../../assets/profile/userProfileImage.png'
 
 function Users(props) {
 
+    console.log(props);
+
     let pagesCount = Math.ceil(props.totalUsersCount / props.countUsersInPage);
 
     let pages = [];
@@ -35,13 +37,17 @@ function Users(props) {
                     </div>
                     <div>
                         {u.followed ?
-                            <button onClick={ () =>{
-                                props.unfollow(u.id)
+                            <button disabled={props.toggleIsFollowing.some( (el) => {
+                                return el === u.id
+                            })} onClick={ () =>{
+                                props.unfollow(u.id);
                             }
                             }> Unfollow</button>
                             :
-                            <button onClick={ () =>{
-                                props.follow(u.id)
+                            <button disabled={props.toggleIsFollowing.some( (el) => {
+                                return el === u.id
+                            })} onClick={ () =>{
+                                props.follow(u.id);
                             }
                             }>Follow</button>}
                     </div>
