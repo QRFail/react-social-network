@@ -5,6 +5,9 @@ import Profile from "./Profile";
 import {getProfile, setUserProfile} from "../../redux/profile_reduser";
 import {withRouter} from "react-router-dom";
 import {UserApi} from "../../api/apiSamurai";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import Dialogs from "../Dialogs/Dialogs";
+import {compose} from "redux";
 
 class ProfileApiContainer extends React.Component {
     componentDidMount() {
@@ -34,6 +37,9 @@ let mapStateToProps = (state) => {
     }
 }
 
-let ProfileRouterContainer = withRouter(ProfileApiContainer);
 
-export default connect(mapStateToProps, {setUserProfile, getProfile})(ProfileRouterContainer);
+export default compose(
+    connect(mapStateToProps, {setUserProfile, getProfile}),
+    withRouter,
+    withAuthRedirect
+)(ProfileApiContainer);
