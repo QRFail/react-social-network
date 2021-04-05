@@ -1,0 +1,14 @@
+.fieldInput{
+
+}
+
+.error input,
+.error textarea
+{
+    border: red 1px solid;
+}
+
+.error span
+{
+    color: red;
+}

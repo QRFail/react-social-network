@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import {connect} from "react-redux";
 import Profile from "./Profile";
-import {getProfile, setUserProfile} from "../../redux/profile_reduser";
+import {getProfile, getStatus, setUserProfile, setUserStatus, updateStatus} from "../../redux/profile_reduser";
 import {withRouter} from "react-router-dom";
 import {UserApi} from "../../api/apiSamurai";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -14,10 +14,12 @@ class ProfileApiContainer extends React.Component {
 
         let userId = this.props.match.params.userId;
         if(!userId){
-            userId = 2;
+            //userId = 16209;
+            userId = this.props.userId;
         }
 
         this.props.getProfile(userId);
+        this.props.getStatus(userId);
     }
 
     render() {
@@ -33,13 +35,16 @@ class ProfileApiContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        profileInfo: state.profilePage.profileInfo
+        profileInfo: state.profilePage.profileInfo,
+        status: state.profilePage.status,
+        userId: state.auth.userId,
+        isAuth: state.auth.isAuth,
     }
 }
 
 
 export default compose(
-    connect(mapStateToProps, {setUserProfile, getProfile}),
+    connect(mapStateToProps, {setUserProfile, getProfile, getStatus, updateStatus}),
     withRouter,
     withAuthRedirect
 )(ProfileApiContainer);

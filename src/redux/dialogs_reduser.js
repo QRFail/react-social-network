@@ -28,18 +28,13 @@ let dialogsReduser = (state = initial_state, action) => {
                     ...state.messages,
                     {
                         id: state.messages.length + 1,
-                        message: state.newMessageText
+                        message: action.message
                     }
                 ],
                 newMessageText: '',
             }
 
 
-        case UPDATE_NEW_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMessageText: action.newText
-            };
 
 
         default:
@@ -47,12 +42,10 @@ let dialogsReduser = (state = initial_state, action) => {
     }
 }
 
-export const addMessageCreator = () => {
-    return {type: ADD_MESSAGE}
+export const addMessageCreator = (message) => {
+    return {type: ADD_MESSAGE, message}
 }
 
-export const updateNewMessageTextCreator = (text) => {
-    return {type: UPDATE_NEW_MESSAGE_TEXT, newText: text}
-}
+
 
 export default dialogsReduser;

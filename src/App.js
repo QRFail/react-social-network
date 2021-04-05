@@ -9,32 +9,58 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileApiContainer from "./components/Profile/ProfileApiContainer";
 import HeaderApiContainer from "./components/Header/HeaderApiContainer";
 import Login from "./components/Login/Login";
+import React from "react";
+import {connect} from "react-redux";
+import {getAuthMe} from "./redux/auth_reduser";
+import Preloader from "./components/Preloaders/preloader";
+import {initializeApp} from "./redux/app_reduser";
 
 
-function App(props) {
-  return (
-      <BrowserRouter>
-          <div className="app-wrapper">
-              <HeaderApiContainer/>
-              <Navnar/>
-              <div className="app-wrapper-content">
+class App extends React.Component {
 
-                  <Route path='/profile/:userId?'
-                         render={ () =>  <ProfileApiContainer/> }/>
-                  <Route path='/dialogs'
-                         render={ () =>  <DialogsContainer/> }/>
-                  <Route path='/users' component={UsersContainer}/>
-                  <Route path='/news' component={News}/>
-                  <Route path='/music' component={Music}/>
-                  <Route path='/settings' component={Settings}/>
-                  <Route path='/login' component={Login}/>
+    componentDidMount() {
+        this.props.initializeApp();
+    }
 
-              </div>
+    render(){
 
-          </div>
-      </BrowserRouter>
+        if(!this.props.initialized){
+            return(
+                <Preloader/>
+            )
+        }
 
-  );
+        return (
+            <BrowserRouter>
+                <div className="app-wrapper">
+                    <HeaderApiContainer/>
+                    <Navnar/>
+                    <div className="app-wrapper-content">
+
+                        <Route path='/profile/:userId?'
+                               render={ () =>  <ProfileApiContainer/> }/>
+                        <Route path='/dialogs'
+                               render={ () =>  <DialogsContainer/> }/>
+                        <Route path='/users' component={UsersContainer}/>
+                        <Route path='/news' component={News}/>
+                        <Route path='/music' component={Music}/>
+                        <Route path='/settings' component={Settings}/>
+                        <Route path='/login' component={Login}/>
+
+                    </div>
+
+                </div>
+            </BrowserRouter>
+
+        );
+    }
+
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return({
+        initialized: state.app.initialized
+    })
+}
+
+export default connect(mapStateToProps, { getAuthMe, initializeApp })(App);

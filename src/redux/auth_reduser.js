@@ -1,4 +1,5 @@
 import {AuthApi} from "../api/apiSamurai";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_INFO = 'SET_USER_INFO';
 
@@ -16,8 +17,7 @@ let authReduser = (state = initial_state, action) => {
 
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload
             }
 
         default:
@@ -27,18 +27,51 @@ let authReduser = (state = initial_state, action) => {
 
 }
 
-export const setUserInfo = (userId, email, login) => {
-    return { type: SET_USER_INFO , data:{userId, email, login}}
+export const setUserInfo = (userId, email, login, isAuth) => {
+    return { type: SET_USER_INFO , payload:{userId, email, login, isAuth}}
 }
 
 export const getAuthMe = () => {
     return(
         (dispatch) => {
-            AuthApi.me().then(
+            return AuthApi.me().then(
                 data => {
                     if(data.resultCode === 0){
                         let {email, id, login} = data.data;
-                        dispatch(setUserInfo(id, email, login));
+                        dispatch(setUserInfo(id, email, login, true));
+
+                    }
+
+                }
+            );
+        }
+    )
+}
+
+export const login = (email, password, rememberMe) => {
+    return(
+        (dispatch) => {
+            AuthApi.login(email, password, rememberMe).then(
+                data => {
+                    if(data.resultCode === 0){
+                        dispatch(getAuthMe())
+                    } else {
+                        dispatch(stopSubmit('loginForm',  {_error: data.messages.length > 0 ? data.messages[0] :'other error' }));
+                    }
+
+                }
+            );
+        }
+    )
+}
+
+export const logout = (email, password, rememberMe) => {
+    return(
+        (dispatch) => {
+            AuthApi.logout().then(
+                data => {
+                    if(data.resultCode === 0){
+                        dispatch(setUserInfo(null, null, null, false));
                     }
 
                 }
