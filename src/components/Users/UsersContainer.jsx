@@ -8,6 +8,7 @@ import {
     setToggleIsFollowing, getUsers
 } from "../../redux/users_reduser";
 import React from "react";
+import {getUserSuperSelector} from "../../redux/selectors";
 const {connect} = require("react-redux");
 
 class UsersApiComponent extends React.Component{
@@ -39,7 +40,7 @@ class UsersApiComponent extends React.Component{
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
+        users: getUserSuperSelector(state),
         countUsersInPage: state.usersPage.countUsersInPage,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,

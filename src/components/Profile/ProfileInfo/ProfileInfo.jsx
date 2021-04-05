@@ -1,6 +1,7 @@
 import s from './ProfileInfo.module.css'
 import userImage from '../../../assets/profile/userProfileImage.png'
 import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHook from "./ProfileStatusWithHook";
 
 function ProfileInfo(props) {
 
@@ -15,7 +16,7 @@ function ProfileInfo(props) {
             <div>
                 <img src={props.profileInfo.photos.small ?? userImage} alt=""/>
             </div>
-            <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+            <ProfileStatusWithHook status={props.status} updateStatus={props.updateStatus}/>
 
         </div>
     );
