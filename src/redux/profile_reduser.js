@@ -16,7 +16,7 @@ let initial_state = {
     status: ''
 };
 
-let profileReduser = (state = initial_state, action) => {
+const profileReduser = (state = initial_state, action) => {
 
     switch (action.type){
         case ADD_POST:
